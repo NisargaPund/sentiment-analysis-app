@@ -1,0 +1,10 @@
+# Netlify configuration file
+[build]
+  command = "npm run build"
+  publish = "dist"
+
+# Redirect all routes to index.html for React Router (if you add routing later)
+[[redirects]]
+  from = "/*"
+  to = "/index.html"
+  status = 200
