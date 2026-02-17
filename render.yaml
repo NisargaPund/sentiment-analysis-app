@@ -1,0 +1,20 @@
+# Render Blueprint: deploy backend only. Frontend deploy separately (e.g. Netlify) with VITE_API_BASE = your backend URL + /api
+services:
+  - type: web
+    name: sentiment-backend
+    runtime: python
+    pythonVersion: "3.11"
+    rootDir: backend
+    buildCommand: pip install --upgrade pip && pip install --prefer-binary -r requirements.txt
+    startCommand: gunicorn -w 1 -b 0.0.0.0:$PORT app:app
+    envVars:
+      - key: SECRET_KEY
+        generateValue: true
+      - key: FRONTEND_ORIGIN
+        sync: false
+      - key: DATA_SOURCE
+        value: newsapi
+      - key: ADMIN_USERNAME
+        sync: false
+      - key: ADMIN_PASSWORD
+        sync: false
